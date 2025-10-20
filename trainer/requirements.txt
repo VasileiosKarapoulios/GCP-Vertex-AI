@@ -1,0 +1,13 @@
+numpy
+tqdm
+typing-extensions
+black
+pypdf
+transformers
+peft
+datasets
+evaluate
+google-cloud-aiplatform
+google-cloud-storage
+flask
+bert_score

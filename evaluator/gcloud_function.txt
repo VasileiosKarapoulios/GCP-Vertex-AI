@@ -1,0 +1,8 @@
+1. gcloud pubsub topics create model-evaluation-trigger-topic
+
+2. gcloud logging sinks create vertex-model-upload-sink pubsub.googleapis.com/projects/my-gcp-project-474712/topics/model-evaluation-trigger-topic 
+--log-filter='resource.type="audited_resource" AND protoPayload.methodName="google.cloud.aiplatform.v1.ModelService.UploadModel"' 
+--project=my-gcp-project-474712 --include-children
+
+3. gcloud functions deploy start_evaluation --gen2 --runtime python310 --region europe-west1 --source . --entry-point start_evaluation 
+--trigger-topic model-evaluation-trigger-topic --memory 16Gi --timeout 540s --set-env-vars PROJECT_ID="my-gcp-project-474712",REGION="europe-west1" --clear-secrets
